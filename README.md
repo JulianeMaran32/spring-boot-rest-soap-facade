@@ -1,11 +1,8 @@
 # Spring Boot: API REST como Fachada para um Serviço SOAP
 
-Este projeto é um exemplo prático para desenvolvedores Java Pleno que demonstra como implementar o padrão de projeto
-**Facade**. Criamos uma API REST moderna e amigável utilizando **Spring Boot 3.5** que consome, nos bastidores, um
-serviço web SOAP legado (simulado dentro da própria aplicação para fins didáticos).
+Este projeto é um exemplo prático que demonstra como implementar o padrão de projeto **Facade**. Criamos uma API REST moderna e amigável utilizando **Spring Boot 3.5** que consome, nos bastidores, um serviço web SOAP legado (simulado dentro da própria aplicação para fins didáticos).
 
-Este padrão é extremamente útil em cenários de modernização de sistemas, onde é preciso expor uma interface simples (
-JSON/REST) para clientes novos, sem modificar o serviço SOAP existente.
+Este padrão é extremamente útil em cenários de modernização de sistemas, onde é preciso expor uma interface simples (JSON/REST) para clientes novos, sem modificar o serviço SOAP existente.
 
 ## Conceitos Chave Demonstrados
 
