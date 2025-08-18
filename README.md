@@ -39,64 +39,6 @@ Este padrão é extremamente útil em cenários de modernização de sistemas, o
    ```
    A aplicação estará rodando em `http://localhost:8080`.
 
-## Como Testar os Endpoints
-
-Você pode usar `curl`, Postman ou qualquer outro cliente de API para testar.
-
-### 1. Testar a API REST (Objetivo Principal)
-
-Faça uma requisição GET para obter as informações do país "Brasil".
-
-```bash
-curl http://localhost:8080/api/paises/Brasil
-```
-
-**Resposta Esperada (JSON):**
-
-```json
-{
-  "nome": "Brasil",
-  "capital": "Brasília",
-  "moeda": "BRL"
-}
-```
-
-Tente com outro país simulado.
-
-```bash
-curl http://localhost:8080/api/paises/Japao
-```
-
-**Resposta Esperada (JSON):**
-
-```json
-{
-  "nome": "Japao",
-  "capital": "Tóquio",
-  "moeda": "JPY"
-}
-```
-
-### 2. Verificar o WSDL do Serviço SOAP (Opcional)
-
-Para confirmar que o serviço SOAP mock está no ar, você pode acessar o WSDL gerado pelo Spring no seu navegador:
-
-[http://localhost:8080/ws/countries.wsdl](http://localhost:8080/ws/countries.wsdl)
-
-## Estrutura do Projeto
-
-```
-src/main/java
-└── com/example/restsoapfacade
-    ├── rest/                  # Camada da API REST (Controller e DTO)
-    ├── soap
-    │   ├── client/            # Configuração e cliente para consumir o SOAP
-    │   └── server/            # Endpoint e repositório do serviço SOAP (mock)
-    └── RestSoapFacadeApplication.java  # Classe principal
-src/main/resources
-└── countries.xsd              # Schema (contrato) do serviço SOAP
-```
-
 ## Tecnologias Utilizadas
 
 * **Java 21**
@@ -110,3 +52,7 @@ src/main/resources
 ## Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## Mais informações
+
+Saiba mais no [README.md](https://github.com/JulianeMaran32/spring-boot-rest-soap-facade/blob/main/rest-soap-facade/README.md) da aplicação.
