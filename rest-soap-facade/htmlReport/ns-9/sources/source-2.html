@@ -1,0 +1,179 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CountrySoapClient</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.juhmaran.restsoapfacade.infrastructure.soap.client</a>
+</div>
+
+<h1>Coverage Summary for Class: CountrySoapClient (com.juhmaran.restsoapfacade.infrastructure.soap.client)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CountrySoapClient</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33,3%
+  </span>
+  <span class="absValue">
+    (1/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    4,8%
+  </span>
+  <span class="absValue">
+    (1/21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.juhmaran.restsoapfacade.infrastructure.soap.client;
+&nbsp;
+&nbsp;import com.juhmaran.restsoapfacade.infrastructure.exceptions.SoapServiceException;
+&nbsp;import com.juhmaran.restsoapfacade.stubs.GetCountryRequest;
+&nbsp;import com.juhmaran.restsoapfacade.stubs.GetCountryResponse;
+&nbsp;import lombok.RequiredArgsConstructor;
+&nbsp;import lombok.Setter;
+&nbsp;import lombok.extern.slf4j.Slf4j;
+&nbsp;import org.springframework.ws.client.WebServiceTransportException;
+&nbsp;import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
+&nbsp;
+&nbsp;import java.util.regex.Matcher;
+&nbsp;import java.util.regex.Pattern;
+&nbsp;
+&nbsp;//@Component
+&nbsp;@Setter
+<b class="fc">&nbsp;@Slf4j</b>
+&nbsp;@RequiredArgsConstructor
+&nbsp;public class CountrySoapClient extends WebServiceGatewaySupport {
+&nbsp;
+&nbsp;  private String countryServiceUrl;
+&nbsp;
+&nbsp;  public GetCountryResponse getCountry(String countryName) {
+<b class="nc">&nbsp;    var request = new GetCountryRequest();</b>
+<b class="nc">&nbsp;    request.setName(countryName);</b>
+&nbsp;
+<b class="nc">&nbsp;    log.info(&quot;Cliente SOAP: Enviando requisição para &#39;{}&#39; com o país: {}&quot;, countryServiceUrl, countryName);</b>
+&nbsp;    try {
+<b class="nc">&nbsp;      var response = (GetCountryResponse) getWebServiceTemplate()</b>
+<b class="nc">&nbsp;        .marshalSendAndReceive(countryServiceUrl, request);</b>
+<b class="nc">&nbsp;      log.info(&quot;Cliente SOAP: Resposta recebida com sucesso.&quot;);</b>
+<b class="nc">&nbsp;      return response;</b>
+&nbsp;    } catch (WebServiceTransportException e) {
+&nbsp;      // Extrai o status code da mensagem de erro (ex: &quot;Not Found [404]&quot;)
+<b class="nc">&nbsp;      int statusCode = extractStatusCode(e.getMessage());</b>
+<b class="nc">&nbsp;      String errorMessage = String.format(&quot;O serviço SOAP em &#39;%s&#39; retornou um erro HTTP %d.&quot;, countryServiceUrl, statusCode);</b>
+<b class="nc">&nbsp;      log.error(errorMessage, e);</b>
+&nbsp;      // Lança nossa exceção personalizada com os detalhes
+<b class="nc">&nbsp;      throw new SoapServiceException(errorMessage, statusCode, e);</b>
+&nbsp;    } catch (Exception e) {
+&nbsp;      // Para outros tipos de erro (ex: falha de conexão, timeout)
+<b class="nc">&nbsp;      String errorMessage = String.format(&quot;Falha na comunicação com o serviço SOAP em &#39;%s&#39;.&quot;, countryServiceUrl);</b>
+<b class="nc">&nbsp;      log.error(errorMessage, e);</b>
+<b class="nc">&nbsp;      throw new SoapServiceException(errorMessage, e);</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Helper para extrair o código de status HTTP da mensagem da exceção.
+&nbsp;   * A mensagem de WebServiceTransportException geralmente é no formato &quot;Status Message [statusCode]&quot;.
+&nbsp;   */
+&nbsp;  private int extractStatusCode(String message) {
+<b class="nc">&nbsp;    if (message != null) {</b>
+<b class="nc">&nbsp;      var pattern = Pattern.compile(&quot;\\[(\\d{3})\\]&quot;); // Procura por 3 dígitos entre colchetes</b>
+<b class="nc">&nbsp;      Matcher matcher = pattern.matcher(message);</b>
+<b class="nc">&nbsp;      if (matcher.find()) {</b>
+<b class="nc">&nbsp;        return Integer.parseInt(matcher.group(1));</b>
+&nbsp;      }
+&nbsp;    }
+<b class="nc">&nbsp;    return 500; // Retorna 500 se não conseguir extrair</b>
+&nbsp;  }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-08-17 21:08</div>
+</div>
+</body>
+</html>

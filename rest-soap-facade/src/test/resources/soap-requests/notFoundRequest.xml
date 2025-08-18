@@ -1,0 +1,3 @@
+<q0:getCountryRequest xmlns:q0="http://www.example.com/soap/paises">
+    <q0:name>Argentina</q0:name>
+</q0:getCountryRequest>

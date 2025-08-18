@@ -1,0 +1,161 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > WebServiceConfig</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.juhmaran.restsoapfacade.infrastructure.soap.server</a>
+</div>
+
+<h1>Coverage Summary for Class: WebServiceConfig (com.juhmaran.restsoapfacade.infrastructure.soap.server)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WebServiceConfig</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">WebServiceConfig$$SpringCGLIB$$0</td>
+  </tr>
+  <tr>
+    <td class="name">WebServiceConfig$$SpringCGLIB$$FastClass$$0</td>
+  </tr>
+  <tr>
+    <td class="name">WebServiceConfig$$SpringCGLIB$$FastClass$$1</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.juhmaran.restsoapfacade.infrastructure.soap.server;
+&nbsp;
+&nbsp;import org.springframework.boot.web.servlet.ServletRegistrationBean;
+&nbsp;import org.springframework.context.ApplicationContext;
+&nbsp;import org.springframework.context.annotation.Bean;
+&nbsp;import org.springframework.context.annotation.Configuration;
+&nbsp;import org.springframework.core.io.ClassPathResource;
+&nbsp;import org.springframework.ws.config.annotation.EnableWs;
+&nbsp;import org.springframework.ws.transport.http.MessageDispatcherServlet;
+&nbsp;import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
+&nbsp;import org.springframework.xml.xsd.SimpleXsdSchema;
+&nbsp;import org.springframework.xml.xsd.XsdSchema;
+&nbsp;
+&nbsp;@EnableWs
+&nbsp;@Configuration
+<b class="fc">&nbsp;public class WebServiceConfig {</b>
+&nbsp;
+&nbsp;  @Bean
+&nbsp;  public ServletRegistrationBean&lt;MessageDispatcherServlet&gt; messageDispatcherServlet(ApplicationContext applicationContext) {
+<b class="fc">&nbsp;    var servlet = new MessageDispatcherServlet();</b>
+<b class="fc">&nbsp;    servlet.setApplicationContext(applicationContext);</b>
+<b class="fc">&nbsp;    servlet.setTransformWsdlLocations(true);</b>
+<b class="fc">&nbsp;    return new ServletRegistrationBean&lt;&gt;(servlet, &quot;/ws/*&quot;);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Bean(name = &quot;paises&quot;)
+&nbsp;  public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
+<b class="fc">&nbsp;    var wsdl11Definition = new DefaultWsdl11Definition();</b>
+<b class="fc">&nbsp;    wsdl11Definition.setPortTypeName(&quot;CountriesPort&quot;);</b>
+<b class="fc">&nbsp;    wsdl11Definition.setLocationUri(&quot;/ws&quot;);</b>
+<b class="fc">&nbsp;    wsdl11Definition.setTargetNamespace(&quot;http://www.example.com/soap/paises&quot;);</b>
+<b class="fc">&nbsp;    wsdl11Definition.setSchema(countriesSchema);</b>
+<b class="fc">&nbsp;    return wsdl11Definition;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Bean
+&nbsp;  public XsdSchema countriesSchema() {
+<b class="fc">&nbsp;    return new SimpleXsdSchema(new ClassPathResource(&quot;countries.xsd&quot;));</b>
+&nbsp;  }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-08-17 21:08</div>
+</div>
+</body>
+</html>

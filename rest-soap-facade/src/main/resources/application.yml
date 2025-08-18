@@ -1,0 +1,31 @@
+# --- Spring Configuration
+spring:
+  application:
+    name: rest-soap-facade
+
+# --- Server Configuration
+server:
+  port: 8080
+
+# --- SOAP Configuration
+soap:
+  client:
+    country-service-url: "http://localhost:8080/ws/paises" # URL do endpoint SOAP
+
+# --- Logging Configuration
+logging:
+  level:
+    com.juhmaran.restsoapfacade: DEBUG
+    org.springframework.web: INFO
+    org.springframework.ws.client.MessageTracing: TRACE
+    org.springframework.ws.server.MessageTracing: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+# --- SpringDoc OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+    version: openapi_3_1
+  swagger-ui:
+    path: /swagger-ui.html

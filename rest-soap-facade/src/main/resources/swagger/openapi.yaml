@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: 'REST SOAP Facade'
+  description: |-
+    Projeto de exemplo em Java 21 e Spring Boot 3.5 que demonstra o padrão Facade para criar uma API REST moderna 
+    consumindo um serviço web SOAP legado.
+  version: 1.0.0
+  contact:
+    name: 'Juliane'
+    email: 'juhvaliatimaran@gmail.com'
+  license:
+    name: 'MIT License'
+    url: 'https://mit-license.org/'
+servers:
+  - url: 'http://localhost:8080'
+    description: 'Ambiente de Desenvolvimento Local'
+tags:
+  - name: Coutries
+    description: 'Endpoint para consulta de informações sobre países.'
+paths:
+  /country/{name}:
+    get:
+      tags:
+        - 'Coutries'
+      summary: 'Busca um país pelo nome'
+      description: |-
+        Retorna informações detalhadas de um país, como sua capital e moeda, com base no nome fornecido. 
+        A busca não diferencia maiúsculas de minúsculas.
+      operationId: getCountryByName
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'País encontrado com sucesso.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryResponseDTO'
+        '400':
+          description: 'Requisição inválida. Verifique os parâmetros enviados.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '404':
+          description: 'O país com o nome especificado não foi encontrado.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '500':
+          description: 'Erro interno inesperado no servidor.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '502':
+          description: 'O serviço externo de países está indisponível ou retornou um erro.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+components:
+  schemas:
+    CountryResponseDTO:
+      type: object
+      description: 'Representa os dados de resposta para a consulta de um país.'
+      properties:
+        name:
+          type: string
+          description: 'Nome oficial do país.'
+          example: 'Brasil'
+        capital:
+          type: string
+          description: 'Capital do país.'
+          example: 'Brasília'
+        currency:
+          type: string
+          description: 'Código da moeda local (padrão ISO 4217).'
+          example: 'BRL'
+    ErrorResponseDTO:
+      type: object
+      description: 'Representa a estrutura padrão para respostas de erro da API.'
+      properties:
+        title:
+          type: string
+          description: 'Resumo do status HTTP.'
+          example: 'Not Found'
+        status:
+          type: integer
+          format: int32
+          description: 'Código do status HTTP.'
+          example: 404
+        details:
+          type: string
+          description: 'Descrição detalhada do erro ocorrido.'
+          example: "País 'argentina' não encontrado."
+        timestamp:
+          type: string
+          format: date-time
+          description: 'Data e hora em que o erro ocorreu (UTC).'
+          example: '2025-08-17T21:40:44.4117904'
+        errors:
+          type: array
+          description: 'Lista de erros de validação específicos (usado principalmente para erros 400 Bad Request).'
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    ValidationError:
+      type: object
+      description: 'Detalha um erro de validação específico de um campo.'
+      properties:
+        field:
+          type: string
+          description: 'Nome do campo que falhou na validação.'
+          example: 'countryName'
+        message:
+          type: string
+          description: 'Mensagem descrevendo o erro de validação.'
+          example: 'O nome não pode conter caracteres especiais.'

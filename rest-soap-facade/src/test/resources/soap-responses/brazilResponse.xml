@@ -1,0 +1,7 @@
+<ns2:getCountryResponse xmlns:ns2="http://www.example.com/soap/paises">
+    <ns2:country>
+        <ns2:name>Brasil</ns2:name>
+        <ns2:capital>Brasília</ns2:capital>
+        <ns2:currency>BRL</ns2:currency>
+    </ns2:country>
+</ns2:getCountryResponse>
